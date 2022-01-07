@@ -7,6 +7,8 @@ First include ethers in your header
 
 Then include opensea-api.js either from jsDelivr or by yourself
 ```html
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/What-The-Commit/opensea-api@v1.0.0/opensea-api.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/What-The-Commit/opensea-api@v1.0.0/opensea-api.js"></script>
 <script type="text/javascript" src="opensea-api.js"></script>
 ```
 
