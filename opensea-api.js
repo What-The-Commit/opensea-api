@@ -3,6 +3,9 @@ class OpenseaApi {
         this.etherUtils = etherUtils;    
         this.baseUrl = baseUrl;
         this.apiKey = apiKey;
+
+        this.erc721Identifier = 'non-fungible';
+        this.erc1155Identifier = 'semi-fungible';
     }
 
     async _doFetch(queryString, config = null) {
@@ -53,7 +56,7 @@ class OpenseaApi {
         data.assets.forEach(function (asset) {
             var assetPrice;
     
-            if (asset.asset_contract.asset_contract_type === erc721Identifier && asset.last_sale.payment_token.symbol.indexOf('WETH') !== -1) {
+            if (asset.asset_contract.asset_contract_type === this.erc721Identifier && asset.last_sale.payment_token.symbol.indexOf('WETH') !== -1) {
                 return
             }
      
