@@ -1,11 +1,13 @@
 class OpenseaApi {
-    constructor(etherUtils, apiKey = null, baseUrl = 'https://api.opensea.io/api/v1/') {
+    constructor(etherUtils, apiKey = null, maxPercentagePriceDrop = 0.9, baseUrl = 'https://api.opensea.io/api/v1/') {
         this.etherUtils = etherUtils;    
         this.baseUrl = baseUrl;
         this.apiKey = apiKey;
 
         this.erc721Identifier = 'non-fungible';
         this.erc1155Identifier = 'semi-fungible';
+
+        this.maxPercentagePriceDrop = maxPercentagePriceDrop;
     }
 
     async _doFetch(queryString, config = null) {
@@ -65,7 +67,7 @@ class OpenseaApi {
         
                 assetPrice = convertedEth / parseInt(asset.last_sale.quantity);
     
-                if (lowestPrice === 0 || assetPrice < lowestPrice) {
+                if (lowestPrice === 0 || assetPrice < lowestPrice || (lowestPrice - assetPrice) / lowestPrice <= this.maxPercentagePriceDrop) {
                     lowestPrice = assetPrice;
                 }
     
@@ -73,8 +75,8 @@ class OpenseaApi {
             }
         
             assetPrice = parseFloat(this.etherUtils.formatEther(asset.last_sale.total_price))  / parseInt(asset.last_sale.quantity);
-     
-            if (lowestPrice === 0 || assetPrice < lowestPrice) {
+                        
+            if (lowestPrice === 0 || assetPrice < lowestPrice || (lowestPrice - assetPrice) / lowestPrice <= this.maxPercentagePriceDrop ) {
                 lowestPrice = assetPrice;
             }
       
