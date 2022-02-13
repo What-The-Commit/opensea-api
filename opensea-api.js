@@ -91,11 +91,11 @@ class OpenseaApi {
         return await response.json();
     }
     
-    async getFloorPriceForCollectionBySlug(slug) {
+    async getFloorPriceForCollectionBySlug(slug, useAvg = false) {
         let response = await this._doFetch('collection/' + slug + '/stats');
     
         let data = await response.json();
     
-        return data.stats.floor_price;
+        return useAvg ? data.stats.average_price : data.stats.floor_price;
     }
 }
